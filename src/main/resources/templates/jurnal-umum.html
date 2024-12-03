@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Jurnal Umum</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item active"><i class="fas fa-book"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-pne"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-chart-pie"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-pnk">Akses Profil</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <h1>Jurnal Umum</h1>
+        <form action="/jurnal-umum/print-pdf" method="post">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+            <button type="submit">Print PDF</button>
+        </form>
+        <table class="jurnal-table">
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Ref</th>
+                    <th>Debit</th>
+                    <th>Kredit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="transaksi : ${jurnalUmum}">
+                    <td th:text="${transaksi != null && transaksi.date != null ? #temporals.format(transaksi.date, 'dd MMMM yyyy') : 'N/A'}"></td>
+                    <td>
+                            <p th:text="${transaksi != null && transaksi.debitAkun != null ? transaksi.debitAkun.namaAkun : 'N/A'}"></p>
+                            <p th:text="${transaksi != null && transaksi.kreditAkun != null ? transaksi.kreditAkun.namaAkun : 'N/A'}"></p>
+                            <strong>Catatan:</strong> <span th:text="${transaksi != null ? transaksi.notes : 'Tidak ada catatan'}"></span>
+
+                    </td>
+                    <td>
+                            <p th:text="${transaksi != null && transaksi.debitAkun != null ? transaksi.debitAkun.kodeAkun : 'N/A'}"></p>
+                            <p th:text="${transaksi != null && transaksi.kreditAkun != null ? transaksi.kreditAkun.kodeAkun : 'N/A'}"></p>
+                            <br>
+                    </td>
+                    <td>
+                        <p th:text="${transaksi != null ? transaksi.nominal : 'N/A'}"></p>
+                        <br>
+                        <br>
+                        <br>
+                    </td>
+                    <td>
+                        <br>
+                        <br>
+                        <p th:text="${transaksi != null ? transaksi.nominal : 'N/A'}"></p>
+                        <br>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td th:text="${#numbers.formatDecimal(totalDebit, 0, 2)}"></td>
+                    <td th:text="${#numbers.formatDecimal(totalKredit, 0, 2)}"></td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </main>
+</body>
+</html>

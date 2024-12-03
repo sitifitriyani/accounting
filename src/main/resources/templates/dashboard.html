@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.png" alt="Logo" class="logo-image">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name">Nama Perusahaan</h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item active">Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item">Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item">Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item">Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item">Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item">Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item">Neraca</a>
+            <a th:href="@{/akun}" class="nav-item">Akun</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <header class="main-header">
+            <div class="profile-header">
+                <img th:src="'data:image/jpeg;base64,' + ${profileImage}" alt="Foto Profil" class="profile-image-small" />
+                <a th:href="@{/profile/{id}(id=${profile.id})}" class="profile-link" th:text="${profile.name}">Profil</a>
+            </div>
+        </header>
+        <h2 class="dashboard-title">Dashboard</h2>
+        <div id="chart-container" class="chart-container">
+            <canvas id="myChart" class="chart"></canvas>
+        </div>
+    </main>
+</body>
+</html>

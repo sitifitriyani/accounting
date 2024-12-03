@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <title>Akun</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a></li>
+            <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-file-invoice-dollar"></i>Transaksi</a></li>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-book"></i>Jurnal Umum</a></li>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book-open"></i>Buku Besar</a></li>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-line"></i>Laba Rugi</a></li>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-exchange-alt"></i>Perubahan Ekuitas</a></li>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a></li>
+            <a th:href="@{/akun}" class="nav-item active"><i class="fas fa-user-circle"></i>Akun</a></li>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="title">
+            <h1>AKUN - AKUN</h1>
+        </div>
+         <!-- Dropdown for sorted accounts -->
+         <div>
+            <form th:action="@{/akun/search}" method="get" class="search-form">
+                <input type="text" name="keyword" placeholder="Cari akun..." />
+                <button type="submit" class="btn btn-search">Cari</button>
+            </form>
+    
+           <!-- Category Selection Form -->
+        <form th:action="@{/akun}" method="get" class="category-form">
+            <label for="categorySelect">Pilih Kategori:</label>
+            <select id="categorySelect" name="category" onchange="this.form.submit()">
+                <option value="" th:selected="${selectedCategory == null || selectedCategory == ''}">Semua</option>
+                <option value="1" th:selected="${selectedCategory == '1'}">Aset</option>
+                <option value="2" th:selected="${selectedCategory == '2'}">Liabilitas</option>
+                <option value="3" th:selected="${selectedCategory == '3'}">Ekuitas</option>
+                <option value="4" th:selected="${selectedCategory == '4'}">Pendapatan</option>
+                <option value="5" th:selected="${selectedCategory == '5'}">Beban</option>
+            </select>
+        </form>
+                </div>
+        <a href="/akun/add-akun" class="btn btn-add"><i class="fas fa-plus"></i> Add Akun</a>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode Akun</th>
+                        <th>Nama Akun</th>
+                        <th>Saldo Normal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="akun : ${akun}">
+                        <td th:text="${akun.kodeAkun}">Kode Akun</td>
+                        <td th:text="${akun.namaAkun}">Nama Akun</td>
+                        <td th:text="${akun.saldoNormal}">Saldo Normal</td>
+                        <td class="actions">
+                            <a th:href="@{/akun/edit/{id}(id=${akun.id})}" class="btn btn-red">Edit</a>
+                            <a th:href="@{/akun/delete/{id}(id=${akun.id})}" class="btn btn-red" onsubmit="return confirm('Are you sure?');">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

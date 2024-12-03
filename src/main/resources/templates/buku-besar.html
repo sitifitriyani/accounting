@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Buku Besar</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item active"><i class="fas fa-book"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-line"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-sync-alt"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-users"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+    <main class="main-content">
+        <h1>Buku Besar</h1>
+        <div th:each="entry : ${bukuBesar}">
+            <div th:if="${not #lists.isEmpty(entry.value)}"> <!-- Validasi jika ada transaksi -->
+                <h2>Akun: <span th:text="${entry.key.namaAkun}"></span></h2>
+                <table class="buku-besar-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Tanggal</th>
+                            <th rowspan="2">Keterangan</th>
+                            <th colspan="2">Mutasi</th>
+                            <th colspan="2">Saldo</th>
+                        </tr>
+                        <tr>
+                            <th>Debit</th>
+                            <th>Kredit</th>
+                            <th>Debit</th>
+                            <th>Kredit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="transaksi : ${entry.value}">
+                            <td th:text="${#temporals.format(transaksi['tanggal'], 'dd MMM yyyy')}"></td>
+                            <td th:text="${transaksi.notes}"></td>
+                            <td th:text="${#numbers.formatDecimal(transaksi['debit'], 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(transaksi['kredit'], 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(transaksi['saldoDebit'], 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(transaksi['saldoKredit'], 1, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    </body>
+</html>

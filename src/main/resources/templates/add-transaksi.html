@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Add Transaksi</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item active"><i class="fas fa-file-invoice-dollar"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-book"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book-open"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-line"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-exchange-alt"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-user-circle"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="title">
+            <h1 th:text="${transaksi.id != null} ? 'Edit Transaksi' : 'Add New Transaksi'"></h1>
+        </div>
+        <form th:action="${transaksi.id == null ? '/transaksi/save' : '/transaksi/edit/' + transaksi.id}" th:object="${transaksi}" method="post">
+            <div class="form-group">
+                <label for="date" class="form-label">Tanggal</label>
+                <input type="datetime-local" id="date" th:field="*{date}" class="form-input" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="debitAkun" class="form-label">Akun Debit</label>
+                <select id="debitAkun" th:field="*{debitAkun}" class="form-input" required>
+                    <option th:each="akun : ${akunList}" th:value="${akun.id}" th:text="${akun.namaAkun}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="kreditAkun" class="form-label">Akun Kredit</label>
+                <select id="kreditAkun" th:field="*{kreditAkun}" class="form-input" required>
+                    <option th:each="akun : ${akunList}" th:value="${akun.id}" th:text="${akun.namaAkun}"></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="nominal" class="form-label">Nominal</label>
+                <input type="number" id="nominal" th:field="*{nominal}" class="form-input" placeholder="Masukkan nilai" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="notes" class="form-label">Catatan</label>
+                <textarea id="notes" th:field="*{notes}" class="form-input" placeholder="Masukkan catatan" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-blue"><i class="fas fa-save"></i> Simpan Transaksi</button>
+                <a href="/transaksi" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

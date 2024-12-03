@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Buku Besar</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"> </h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-line"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item active"><i class="fas fa-sync-alt"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-users"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+    <main class="main-content">
+        <h1>Laporan Perubahan Ekuitas</h1>
+        <form action="/perubahan-ekuitas/print-pdf" method="post">
+            <button type="submit">Print PDF</button>
+        </form>
+    <table>
+        <tr>
+            <td>Ekuitas Pemilik</td>
+            <td th:text="${ekuitasPemilik < 0 ? '(' + #numbers.formatDecimal(-ekuitasPemilik, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(ekuitasPemilik, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td>Kenaikan Ekuitas</td>
+            <td th:text="${kenaikanEkuitas < 0 ? '(' + #numbers.formatDecimal(-kenaikanEkuitas, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(kenaikanEkuitas, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td>Laba Bersih</td>
+            <td th:text="${labaBersih < 0 ? '(' + #numbers.formatDecimal(-labaBersih, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(labaBersih, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td>Total Kenaikan</td>
+            <td th:text="${totalKenaikan < 0 ? '(' + #numbers.formatDecimal(-totalKenaikan, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(totalKenaikan, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td>Penurunan (Prive)</td>
+            <td th:text="${prive > 0 ? '(' + #numbers.formatDecimal(-prive, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(prive, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td>Kenaikan Ekuitas</td>
+            <td th:text="${kenaikanEkuitasSetelahPrive < 0 ? '(' + #numbers.formatDecimal(-kenaikanEkuitasSetelahPrive, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(kenaikanEkuitasSetelahPrive, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <td><strong>Ekuitas per 31 Desember</strong></td>
+            <td th:text="${ekuitasPer31Desember < 0 ? '(' + #numbers.formatDecimal(-ekuitasPer31Desember, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(ekuitasPer31Desember, 1, 'COMMA', 2, 'POINT')}"></td>
+        </tr>
+    </table>
+        </main>
+    </body>
+</html>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Buku Besar</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item active"><i class="fas fa-chart-line"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-sync-alt"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-users"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+    <main class="main-content">
+        <h1>Laporan Laba Rugi</h1>
+        <form action="/laba-rugi/print-pdf" method="post">
+            <button type="submit">Print PDF</button>
+        </form>
+       <table>
+            <thead>
+                <tr>
+                    <th>Jenis Akun</th>
+                    <th>Nominal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pendapatan -->
+                <tr>
+                    <td><b>Total Pendapatan</b></td>
+                    <td th:text="${totalPendapatan < 0 ? '(' + #numbers.formatDecimal(-totalPendapatan, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(totalPendapatan, 1, 'COMMA', 2, 'POINT')}"></td>
+                </tr>
+                <!-- Beban -->
+                <tr>
+                    <td colspan="2"><b>Rincian Beban</b></td>
+                </tr>
+                <tr th:each="entry : ${rincianBeban}">
+                    <td th:text="${entry.key}"></td>
+                    <td th:text="${entry.value < 0 ? '(' + #numbers.formatDecimal(-entry.value, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(entry.value, 1, 'COMMA', 2, 'POINT')}"></td>
+                </tr> 
+                <tr>
+                    <td><b>Total Beban</b></td>
+                    <td th:text="${totalBeban < 0 ? '(' + #numbers.formatDecimal(-totalBeban, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(totalBeban, 1, 'COMMA', 2, 'POINT')}"></td>
+                </tr>
+                <!-- Laba Rugi Bersih -->
+                <tr>
+                    <td><b>Laba/Rugi Bersih</b></td>
+                    <td th:text="${labaRugiBersih < 0 ? '(' + #numbers.formatDecimal(-labaRugiBersih, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(labaRugiBersih, 1, 'COMMA', 2, 'POINT')}"></td>
+                </tr>
+            </tbody>
+        </table>
+        </main>
+    </body>
+</html>
+

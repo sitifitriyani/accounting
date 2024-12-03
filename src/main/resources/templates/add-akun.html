@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM6g0g5z5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e" crossorigin="anonymous">
+  <title>Add Akun</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <img src="/image/logo.css" alt="">
+    <div class="sidebar-header">
+      <h1 th:text="${companyName}" class="company-name"></h1>    
+    </div>
+    <nav class="sidebar-nav">
+      <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+      <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-file-invoice-dollar"></i>Transaksi</a>
+      <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-book"></i>Jurnal Umum</a>
+      <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book-open"></i>Buku Besar</a>
+      <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-chart-line"></i>Laba Rugi</a>
+      <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-exchange-alt"></i>Perubahan Ekuitas</a>
+      <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
+      <a th:href="@{/akun}" class="nav-item active"><i class="fas fa-user-circle"></i>Akun</a>
+    </nav>
+    <div class="profile">
+      <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+      <a href="/profile" class="profile-link">Akses Profil</a>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="title">
+      <h1 th:text="${akun.id == null ? 'Add New Akun' : 'Edit Akun'}">Akun Form</h1>
+    </div>
+
+    <form class="akun-form" th:action="${akun.id == null ? '/akun/add-akun' : '/akun/edit/' + akun.id}" method="post" enctype="multipart/form-data" th:object="${akun}">
+      <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+      <div class="form-group">
+        <label class="form-label">Kode Akun</label>
+        <input type="number" class="form-input" th:field="*{kodeAkun}" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nama Akun</label>
+        <input type="text" class="form-input" th:field="*{namaAkun}" required />
+      </div>
+
+      <div class="form-group">
+        <label for="saldoNormal" class="form-label">Saldo Normal</label>
+        <select class="form-input" th:field="*{saldoNormal}" required>
+            <option value="Debit">Debit</option>
+            <option value="Kredit">Kredit</option>
+        </select>
+    </div>
+
+      <div class="form-actions">
+        <a href="/akun" class="cancel-link"><i class="fas fa-times"></i> Cancel</a>
+        <button type="submit" class="btn btn-green"><i class="fas fa-save"></i> Save Akun</button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>

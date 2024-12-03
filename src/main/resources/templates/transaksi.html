@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Daftar Transaksi</title>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/image/logo.css" alt="">
+        <div class="sidebar-header">
+            <h1 th:text="${companyName}" class="company-name"></h1>        
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/transaksi}" class="nav-item active"><i class="fas fa-home"></i>Transaksi</a>
+            <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
+            <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-home"></i>Buku Besar</a>
+            <a th:href="@{/laba-rugi}" class="nav-item"><i class="fas fa-home"></i>Laba Rugi</a>
+            <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-home"></i>Perubahan Ekuitas</a>
+            <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-home"></i>Neraca</a>
+            <a th:href="@{/akun}" class="nav-item"><i class="fas fa-home"></i>Akun</a>
+        </nav>
+        <div class="profile">
+            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
+            <a href="/profile" class="profile-link">Akses Profil</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <h1>Daftar Transaksi</h1>
+        <form th:action="@{/transaksi/search}" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="Cari transaksi..." />
+            <button type="submit" class="btn btn-search">Cari</button>
+        </form>
+        <a href="/transaksi/add-transaksi" class="btn btn-add">Tambah Transaksi</a>
+        <div class="transaksi-list">
+            <div th:each="transaksi : ${transaksi}" class="transaksi-item">
+                <div class="transaksi-details">
+                    <p><strong>Catatan:</strong> <span th:text="${transaksi.notes}"></span></p>
+                    <p><strong>Nominal:</strong> <span th:text="${transaksi.nominal}"></span></p>
+                    <p><span th:text="${transaksi.date != null ? #temporals.format(transaksi.date, 'dd-MM-yyyy HH:mm'):'N/A'}"></span></p>
+                </div>
+                <div class="actions">
+                    <a th:href="@{/transaksi/edit/{id}(id=${transaksi.id})}" class="btn btn-red">Edit</a>
+                    <a th:href="@{/transaksi/delete/{id}(id=${transaksi.id})}" class="btn btn-red" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?');">Hapus</a>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </main>
+</body>
+</html>
