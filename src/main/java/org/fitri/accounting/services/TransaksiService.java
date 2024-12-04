@@ -20,7 +20,9 @@ public class TransaksiService {
     public List<Transaksi> getTransaksiByAkunId(Long akunId) {
         return transaksiRepository.findByAkunId(akunId);
     }
-
+    public String getKodeAkun() {
+        throw new UnsupportedOperationException("Unimplemented method 'getKodeAkun'");
+    }
     public Transaksi getTransaksiById(Long id){
         return transaksiRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Transaksi not found"));

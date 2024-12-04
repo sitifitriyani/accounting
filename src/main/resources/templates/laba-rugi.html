@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Buku Besar</title>
+    <title>Laba Rugi</title>
 </head>
 <body>
     <div class="sidebar">
-        <img src="/image/logo.css" alt="">
+        <!-- <img src="/image/logo.png" alt="Logo" class="logo-image"> -->
         <div class="sidebar-header">
-            <h1 th:text="${companyName}" class="company-name"></h1>        
+            <h1 class="title">My Accounting</h1>        
         </div>
         <nav class="sidebar-nav">
-            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/dashboard}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
             <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
             <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
             <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book"></i>Buku Besar</a>
@@ -30,7 +30,7 @@
     <main class="main-content">
         <h1>Laporan Laba Rugi</h1>
         <form action="/laba-rugi/print-pdf" method="post">
-            <button type="submit">Print PDF</button>
+            <button type="submit" class="btn">Print PDF</button>
         </form>
        <table>
             <thead>

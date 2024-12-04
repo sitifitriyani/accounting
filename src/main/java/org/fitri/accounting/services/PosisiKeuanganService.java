@@ -33,14 +33,14 @@ public class PosisiKeuanganService {
 
     public Map<String, Double> getLiabilitasList() {
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
-        System.out.println(saldoBukuBesar);
+        // System.out.println(saldoBukuBesar);
         Map<String, Double> rincianLiabilitas = new LinkedHashMap<>();
 
         for (Map.Entry<Akun, Double> entry : saldoBukuBesar.entrySet()) {
             Akun akun = entry.getKey();
             double saldo = entry.getValue();
             
-            if (akun.getKodeAkun().toString().startsWith("2") && saldo > 0) {
+            if (akun.getKodeAkun().toString().startsWith("2")) {
                 rincianLiabilitas.put(akun.getNamaAkun(), saldo);
             }
         }
@@ -51,14 +51,12 @@ public class PosisiKeuanganService {
     public Map<String, Double> getEkuitasList() {
         Map<String, Double> rincianEkuitas = new LinkedHashMap<>();
         
-        // Ambil nilai ekuitas akhir per 31 Desember dari PerubahanEkuitasService
         double ekuitasPer31Desember = perubahanEkuitasService.calculateEkuitasPer31Desember(
             perubahanEkuitasService.getModalAwal(),
             perubahanEkuitasService.totalKenaikanEkuitas(
                 perubahanEkuitasService.penambahanEkuitas(),
                 perubahanEkuitasService.getLabaBersih()) - perubahanEkuitasService.getPrive()
         );
-
         rincianEkuitas.put("Ekuitas per 31 Desember", ekuitasPer31Desember);
         return rincianEkuitas;
     }
@@ -76,6 +74,10 @@ public class PosisiKeuanganService {
     }
 
     public double getTotalKewajiban() {
-        return getTotalLiabilitas() + getTotalEkuitas();
+        return - getTotalLiabilitas() + getTotalEkuitas();
+    }
+
+    public Map<String, Object> getPosisiKeuanganData() {
+        throw new UnsupportedOperationException("Unimplemented method 'getPosisiKeuanganData'");
     }
 }

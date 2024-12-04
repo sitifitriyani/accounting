@@ -13,10 +13,10 @@
   <div class="sidebar">
     <img src="/image/logo.css" alt="">
     <div class="sidebar-header">
-      <h1 th:text="${companyName}" class="company-name"></h1>    
-    </div>
+      <h1 class="title">My Accounting</h1>        
+  </div>
     <nav class="sidebar-nav">
-      <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+      <a th:href="@{/dashboard}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
       <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-file-invoice-dollar"></i>Transaksi</a>
       <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-book"></i>Jurnal Umum</a>
       <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book-open"></i>Buku Besar</a>
@@ -59,8 +59,8 @@
     </div>
 
       <div class="form-actions">
-        <a href="/akun" class="cancel-link"><i class="fas fa-times"></i> Cancel</a>
-        <button type="submit" class="btn btn-green"><i class="fas fa-save"></i> Save Akun</button>
+        <a href="/akun" class="btn"><i class="fas fa-times"></i> Cancel</a>
+        <button type="submit" class="btn"><i class="fas fa-save"></i> Save Akun</button>
       </div>
     </form>
   </main>

@@ -39,7 +39,7 @@ public class AkunController {
         try {
             akunService.saveAkun(akun);
             return "redirect:/akun";
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "add-akun"; 
         }

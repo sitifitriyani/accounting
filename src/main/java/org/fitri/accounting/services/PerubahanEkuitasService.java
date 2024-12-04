@@ -32,14 +32,11 @@ public class PerubahanEkuitasService {
     }
 
     public double penambahanEkuitas() {
-        // Ambil semua saldo buku besar
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
-        // Cari semua transaksi modal setelah transaksi pertama
-        // double modalAwal = getModalAwal(); // Modal awal sudah dihitung sebelumnya
         double totalModal = saldoBukuBesar.entrySet().stream()
                 .filter(entry -> entry.getKey().getNamaAkun().equalsIgnoreCase("Modal"))
-                .skip(1) // Lewati transaksi pertama
-                .mapToDouble(Map.Entry::getValue) // Ambil nilai modal
+                .skip(1)
+                .mapToDouble(Map.Entry::getValue) 
                 .sum();
                 return totalModal;
     }

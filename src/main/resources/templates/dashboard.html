@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +8,13 @@
 </head>
 <body>
     <div class="sidebar">
-        <img src="/image/logo.png" alt="Logo" class="logo-image">
+        <!-- <img src="/image/logo.png" alt="Logo" class="logo-image"> -->
         <div class="sidebar-header">
-            <h1 th:text="${companyName}" class="company-name">Nama Perusahaan</h1>        
+            <h1 class="title">My Accounting</h1>        
         </div>
+
         <nav class="sidebar-nav">
-            <a th:href="@{/}" class="nav-item active">Dashboard</a>
+            <a th:href="@{/dashboard}" class="nav-item active">Dashboard</a>
             <a th:href="@{/transaksi}" class="nav-item">Transaksi</a>
             <a th:href="@{/jurnal-umum}" class="nav-item">Jurnal Umum</a>
             <a th:href="@{/buku-besar}" class="nav-item">Buku Besar</a>
@@ -27,8 +28,13 @@
     <main class="main-content">
         <header class="main-header">
             <div class="profile-header">
-                <img th:src="'data:image/jpeg;base64,' + ${profileImage}" alt="Foto Profil" class="profile-image-small" />
-                <a th:href="@{/profile/{id}(id=${profile.id})}" class="profile-link" th:text="${profile.name}">Profil</a>
+                <a th:if="${profile != null}" th:href="@{/profile/create}" class="profile-link"> Profil </a>
+                <a th:if="${profile == null}" th:href="@{/profile/create}" class="profile-link"> Profil </a>
+                
+                    <div th:if="${profile.profileImage != null}">
+                        <img th:src="${profile.profileImage}" alt="Profile Image" class="profile-image-small">
+                    </div>
+        
             </div>
         </header>
         <h2 class="dashboard-title">Dashboard</h2>

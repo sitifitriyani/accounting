@@ -74,11 +74,8 @@ public class LabaRugiController {
 
         // Add rincian beban
         table.addCell(new Cell(1, 2).add(new Paragraph("Rincian Beban")).setBackgroundColor(headerColor));
-        Map<String, Double> rincianBeban = (Map<String, Double>) data.get("rincianBeban");
-        for (Map.Entry<String, Double> entry : rincianBeban.entrySet()) {
-            table.addCell(new Cell().add(new Paragraph(entry.getKey())).setBackgroundColor(cellColor));
-            table.addCell(new Cell().add(new Paragraph(entry.getValue().toString())).setBackgroundColor(cellColor));
-        }
+        table.addCell(new Cell().add(new Paragraph("rincianBeban")).setBackgroundColor(cellColor));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(labaRugiService.getRincianBeban()))).setBackgroundColor(cellColor));
 
         // Add total beban
         table.addCell(new Cell().add(new Paragraph("Total Beban")).setBackgroundColor(cellColor));

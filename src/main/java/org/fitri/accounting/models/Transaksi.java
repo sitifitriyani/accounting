@@ -28,8 +28,4 @@ public class Transaksi {
 
     private Double nominal;
 
-    public String getKodeAkun() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getKodeAkun'");
-    }
 }

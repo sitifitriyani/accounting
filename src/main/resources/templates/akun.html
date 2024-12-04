@@ -11,12 +11,12 @@
 
 <body>
     <div class="sidebar">
-        <img src="/image/logo.css" alt="">
+        <!-- <img src="/image/logo.png" alt="Logo" class="logo-image"> -->
         <div class="sidebar-header">
-            <h1 th:text="${companyName}" class="company-name"></h1>
+            <h1 class="title">My Accounting</h1>        
         </div>
         <nav class="sidebar-nav">
-            <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a></li>
+            <a th:href="@{/dashboard}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a></li>
             <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-file-invoice-dollar"></i>Transaksi</a></li>
             <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-book"></i>Jurnal Umum</a></li>
             <a th:href="@{/buku-besar}" class="nav-item"><i class="fas fa-book-open"></i>Buku Besar</a></li>
@@ -35,17 +35,15 @@
         <div class="title">
             <h1>AKUN - AKUN</h1>
         </div>
-         <!-- Dropdown for sorted accounts -->
          <div>
             <form th:action="@{/akun/search}" method="get" class="search-form">
                 <input type="text" name="keyword" placeholder="Cari akun..." />
-                <button type="submit" class="btn btn-search">Cari</button>
+                <button type="submit" class="btn ">Cari</button>
             </form>
     
-           <!-- Category Selection Form -->
         <form th:action="@{/akun}" method="get" class="category-form">
             <label for="categorySelect">Pilih Kategori:</label>
-            <select id="categorySelect" name="category" onchange="this.form.submit()">
+            <select id="categorySelect" name="category" onchange="this.form.submit()" class="form-select">
                 <option value="" th:selected="${selectedCategory == null || selectedCategory == ''}">Semua</option>
                 <option value="1" th:selected="${selectedCategory == '1'}">Aset</option>
                 <option value="2" th:selected="${selectedCategory == '2'}">Liabilitas</option>
@@ -55,7 +53,7 @@
             </select>
         </form>
                 </div>
-        <a href="/akun/add-akun" class="btn btn-add"><i class="fas fa-plus"></i> Add Akun</a>
+        <a href="/akun/add-akun" class="btn"><i class="fas fa-plus"></i> Add Akun</a>
         <div>
             <table>
                 <thead>
@@ -72,8 +70,8 @@
                         <td th:text="${akun.namaAkun}">Nama Akun</td>
                         <td th:text="${akun.saldoNormal}">Saldo Normal</td>
                         <td class="actions">
-                            <a th:href="@{/akun/edit/{id}(id=${akun.id})}" class="btn btn-red">Edit</a>
-                            <a th:href="@{/akun/delete/{id}(id=${akun.id})}" class="btn btn-red" onsubmit="return confirm('Are you sure?');">Delete</a>
+                            <a th:href="@{/akun/edit/{id}(id=${akun.id})}" class="btn">Edit</a>
+                            <a th:href="@{/akun/delete/{id}(id=${akun.id})}" class="btn" onsubmit="return confirm('Are you sure?');">Delete</a>
                         </td>
                     </tr>
                 </tbody>

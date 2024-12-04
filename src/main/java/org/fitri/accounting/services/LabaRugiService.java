@@ -13,7 +13,6 @@ public class LabaRugiService {
     @Autowired
     private BukuBesarService bukuBesarService;
 
-    // Hitung total pendapatan dari saldo terakhir buku besar
     public double getTotalPendapatan() {
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
         double totalPendapatan = 0;
@@ -38,7 +37,6 @@ public class LabaRugiService {
             Akun akun = entry.getKey();
             double saldo = entry.getValue();
             
-            // Hanya masukkan akun beban yang memiliki saldo
             if (akun.getNamaAkun().toLowerCase().contains("beban") && saldo > 0) {
                 rincianBeban.put(akun.getNamaAkun(), saldo);
             }
@@ -46,13 +44,11 @@ public class LabaRugiService {
         return rincianBeban;
     }
 
-    // Hitung total beban
     public double getTotalBeban() {
         Map<String, Double> rincianBeban = getRincianBeban();
         return rincianBeban.values().stream().mapToDouble(Double::doubleValue).sum();
     }
 
-    // Hitung laba/rugi bersih
     public double getLabaRugiBersih() {
         return getTotalPendapatan() + getTotalBeban();
     }
