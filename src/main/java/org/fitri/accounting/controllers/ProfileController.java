@@ -1,78 +1,96 @@
 package org.fitri.accounting.controllers;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
+import org.fitri.accounting.models.Login;
 import org.fitri.accounting.models.Profile;
 import org.fitri.accounting.services.LoginService;
 import org.fitri.accounting.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
-    private ProfileService profilService;
+    private ProfileService profileService;
 
     @Autowired
     private LoginService loginService;
 
+    @GetMapping
+    public String getProfile(Model model) {
+        Login login = loginService.getLogin();
+        if (login == null) {
+            return "redirect:/auth/login";
+        }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Profile> updateProfil(@PathVariable Long id, @RequestBody Profile profil) {
-    //     Profile existingProfil = profilService.getProfileById(id);
-    //     if (existingProfil == null) {
-    //         return ResponseEntity.notFound().build();
-    //     }
-    //     profil.setId(id);
-    //     Profile updatedProfil = profilService.saveProfile(profil);
-    //     return ResponseEntity.ok(updatedProfil);
-    // }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProfil(@PathVariable Long id) {
-        profilService.deleteProfileById(id);
-        return ResponseEntity.ok("Profil dan akun login berhasil dihapus.");
-    }
-    
-    @PostMapping("/upload/{id}")
-public ResponseEntity<String> uploadProfileImage(@PathVariable Long id, @RequestPart("image") MultipartFile file) {
-    try {
-        Profile profile = profilService.getProfileById(id);
+        // Ambil profile berdasarkan login, atau buat objek kosong jika belum ada
+        Profile profile = profileService.getByLogin(login);
         if (profile == null) {
-            return ResponseEntity.notFound().build();
+            profile = new Profile();
+            profile.setLogin(login);
         }
-        Path path = Paths.get(System.getProperty("user.dir"),"src","main","resources", "static", file.getOriginalFilename());
-        file.transferTo(path.toFile());
-        String url = "http://localhost:8080/"+file.getOriginalFilename();
-        profile.setProfileImage(url);
-        profilService.saveProfile(profile);
-        return ResponseEntity.ok("Image uploaded successfully.");
-    } catch (IOException e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-    }
-}
 
-    @GetMapping("/create")
-    public String createProfile(Model model){
-        Profile profile = profilService.getByLogin(loginService.getLogin());
-        if(profile == null){
-            model.addAttribute("profile", new Profile());
-        }else{
-            model.addAttribute("profile", profile);
-        }
-        return "profile";
+        model.addAttribute("profile", profile);
+        return "profile"; // Halaman baru untuk detail profil
     }
+
+@GetMapping("/create")
+public String createProfile(Model model) {
+    Login login = loginService.getLogin();
+    if (login == null) {
+        return "redirect:/auth/login";
+    }
+    Profile profile = profileService.getByLogin(login);
+    if (profile == null) {
+        profile = new Profile();
+        profile.setLogin(login);
+    }
+    model.addAttribute("login", profile.getLogin());
+    model.addAttribute("profile", profile);
+    return "edit-profile";
+}
+    // @PostMapping("/save-profile")
+    // public String saveProfile(@ModelAttribute Profile profile, @RequestParam("profileImageFile") MultipartFile file) {
+    //     try {
+    //         if (!file.isEmpty()) {
+    //             Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static", "images", file.getOriginalFilename());
+    //             file.transferTo(path.toFile());
+    //             String imageUrl = "/images/" + file.getOriginalFilename();
+    //             profile.setProfileImage(imageUrl);
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     profileService.saveProfile(profile);
+    //     return "redirect:/dashboard";
+    // }
+    // @PostMapping("/save-profile")
+    // public String saveProfile(@ModelAttribute Profile profile) {
+    //     // Simpan atau perbarui login
+    //     loginService.UpdateLogin(profile.getLogin());
+
+    //     // Simpan profil
+    //     profileService.saveProfile(profile);
+    //     return "redirect:/profile";
+    // }
+    
+    @PostMapping("/delete/{id}")
+    public String deleteProfile(@PathVariable Long id) {
+        profileService.deleteProfileById(id);
+        return "redirect:/login";
+    }
+
     @PostMapping("/save-profile")
-    public String saveProfile(Profile profile){
-            profilService.saveProfile(profile);
-        return "redirect:/dashboard";
+    public String saveProfile(@ModelAttribute Profile profile, Model model) {
+        try {
+            profileService.saveProfile(profile);
+            return "redirect:/profile";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "edit-profile"; // Ganti dengan nama template form profil Anda
+        }
     }
 }

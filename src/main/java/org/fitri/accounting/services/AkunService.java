@@ -28,6 +28,12 @@ public class AkunService {
         if (akunRepository.existsByKodeAkun(akun.getKodeAkun()) || akunRepository.existsByNamaAkun(akun.getNamaAkun())) {
             throw new IllegalArgumentException("Akun sudah ada !!!");
         }
+        if (containsDigit(akun.getNamaAkun())) {
+            throw new IllegalArgumentException("Nama Akun tidak boleh mengandung angka.");
+        }
+        if (containsThreeConsecutiveIdenticalLetters(akun.getNamaAkun())) {
+            throw new IllegalArgumentException("Nama Akun tidak boleh mengandung tiga huruf yang sama berjejer.");
+        }
         return akunRepository.save(akun);    
     }
 
@@ -38,6 +44,12 @@ public class AkunService {
     }
 
     public void updateAkun(Long id, Akun updatedAkun) {
+        if (containsDigit(updatedAkun.getNamaAkun())) {
+            throw new IllegalArgumentException("Nama Akun tidak boleh mengandung angka.");
+        }
+        if (containsThreeConsecutiveIdenticalLetters(updatedAkun.getNamaAkun())) {
+            throw new IllegalArgumentException("Nama Akun tidak boleh mengandung tiga huruf yang sama berjejer.");
+        }
         Akun existingAkun = getAkunById(id);
         existingAkun.setKodeAkun(updatedAkun.getKodeAkun());
         existingAkun.setNamaAkun(updatedAkun.getNamaAkun());
@@ -106,5 +118,23 @@ public class AkunService {
                 }
             })
             .collect(Collectors.toList());
+    }
+
+    private boolean containsDigit(String str) {
+        for (char c : str.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsThreeConsecutiveIdenticalLetters(String str) {
+        for (int i = 0; i < str.length() - 2; i++) {
+            if (str.charAt(i) == str.charAt(i + 1) && str.charAt(i) == str.charAt(i + 2)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

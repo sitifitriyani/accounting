@@ -1,12 +1,25 @@
-/* Body Styles */
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
 body {
     display: flex;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
     background-color: #1a1a2e;
-    margin: 0;
-    padding: 0;
     color: #ffffff;
+}
+
+/* Profile Container Styles */
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 2rem;
+    background-color: #1f1f2b;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -22,6 +35,7 @@ body {
     text-transform: uppercase;
     animation: textGlow 2s infinite;
 }
+
 @keyframes textGlow {
     0%, 100% {
         text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2), 0 0 20px #5c9ded;
@@ -31,20 +45,89 @@ body {
     }
 }
 
+.profile-image-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+.profile-form {
+    margin-top: 1rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button Styles */
+.btn, .btn-red {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #6a5acd;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #483d8b;
+}
+
+.btn-red {
+    background-color: #dc3545;
+}
+
+.btn-red:hover {
+    background-color: #b22222;
+}
+
+.btn:active, .btn-red:active {
+    transform: scale(0.98);
+}
+
+.btn:focus, .btn-red:focus {
+    outline: none;
+}
+
+/* Sidebar Styles */
 .sidebar {
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100%; 
-    width: 250px; 
-    background: #162447; 
+    height: 100%;
+    width: 250px;
+    background: #162447;
     color: white;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    z-index: 1000; 
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
-    overflow-y: auto; 
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 }
 
 .sidebar-header {
@@ -71,6 +154,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* Main Content Styles */
 .main-content {
     flex: 1;
     margin-left: 275px; 

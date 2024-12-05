@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
-        <!-- <img src="/image/logo.png" alt="Logo" class="logo-image"> -->
         <div class="sidebar-header">
             <h1 class="title">My Accounting</h1>        
         </div>
@@ -22,24 +22,21 @@
             <a th:href="@{/perubahan-ekuitas}" class="nav-item">Perubahan Ekuitas</a>
             <a th:href="@{/posisi-keuangan}" class="nav-item">Neraca</a>
             <a th:href="@{/akun}" class="nav-item">Akun</a>
+            <a th:href="@{/auth/login}" class="nav-item"><i class="fas fa-users"></i>Logout</a>
         </nav>
     </div>
 
     <main class="main-content">
         <header class="main-header">
             <div class="profile-header">
-                <a th:if="${profile != null}" th:href="@{/profile/create}" class="profile-link"> Profil </a>
-                <a th:if="${profile == null}" th:href="@{/profile/create}" class="profile-link"> Profil </a>
-                
-                    <div th:if="${profile.profileImage != null}">
-                        <img th:src="${profile.profileImage}" alt="Profile Image" class="profile-image-small">
-                    </div>
-        
+                <a th:href="@{/profile}">
+                    <img th:src="${profile?.profileImage != null ? profile.profileImage : '/image/default-profile.png'}" alt="Profile Image" class="profile-image-small">
+                </a>
             </div>
-        </header>
+        </header>        
         <h2 class="dashboard-title">Dashboard</h2>
         <div id="chart-container" class="chart-container">
-            <canvas id="myChart" class="chart"></canvas>
+            <img th:src="@{/dashboard/chart}" alt="Pendapatan dan Beban Chart" class="chart">
         </div>
     </main>
 </body>

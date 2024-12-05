@@ -7,7 +7,6 @@ import org.fitri.accounting.repositories.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ProfileService {
@@ -17,36 +16,27 @@ public class ProfileService {
     @Autowired
     private LoginRepository loginRepository;
 
-    @Autowired
-    private LoginService loginService;
+    public Profile getByLogin(Login login) {
+        Profile profile = profileRepository.findByLogin(login);
+        if (profile == null) {
+            return null; 
+        }
+        return profile;
+        }
 
-    public List<Profile> getAllProfilees() {
-        return profileRepository.findAll();
-    }
-
-    public Profile getProfileById(Long id) {
-        return profileRepository.getReferenceById(id);
+    public void saveProfile(Profile profile) {
+        profileRepository.save(profile);
     }
 
     public void deleteProfileById(Long id) {
-        Profile profile = profileRepository.findById(id).orElse(null);
-        if (profile != null) {
-            // Hapus akun Login terkait
-            if (profile.getLogin() != null) {
-                loginRepository.delete(profile.getLogin());
-            }
-            profileRepository.deleteById(id);
+        // Profile profile = profileRepository.findById(id).orElse(null);
+        // if (profile != null && profile.getLogin() != null) {
+        //     loginRepository.delete(profile.getLogin());
+        // }
+        // profileRepository.deleteById(id);
+        if (!profileRepository.existsById(id)) {
+            throw new RuntimeException("Profile not found");
         }
-    }
-
-    public Profile getByLogin(Login login) {
-        if(profileRepository.findByLogin(login) == null){
-            return null;
-        }
-        return profileRepository.findByLogin(login);
-    }
-    public void saveProfile(Profile profile){
-        profile.setLogin(loginService.getLogin());
-        profileRepository.save(profile);
+        profileRepository.deleteById(id);
     }
 }

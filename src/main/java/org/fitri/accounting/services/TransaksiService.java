@@ -33,7 +33,7 @@ public class TransaksiService {
     }
     public double calculateSaldoAkun(Long akunId) {
         List<Transaksi> transaksiList = transaksiRepository.findByAkunId(akunId);
-        double saldo = 0.0;
+        double saldo = 0;
 
         for (Transaksi transaksi : transaksiList) {
             if (transaksi.getDebitAkun() != null && transaksi.getDebitAkun().getId().equals(akunId)) {
@@ -51,11 +51,9 @@ public class TransaksiService {
             return transaksiRepository.findAll();
         }
         try {
-            // Coba parsing keyword sebagai Double untuk pencarian nominal
             Double nominal = Double.parseDouble(keyword);
             return transaksiRepository.findByNominal(nominal);
         } catch (NumberFormatException e) {
-            // Jika parsing gagal, lakukan pencarian berdasarkan catatan
             return transaksiRepository.findByNotesContainingIgnoreCase(keyword);
         }
     }

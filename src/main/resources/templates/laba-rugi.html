@@ -21,14 +21,14 @@
             <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-sync-alt"></i>Perubahan Ekuitas</a>
             <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
             <a th:href="@{/akun}" class="nav-item"><i class="fas fa-users"></i>Akun</a>
+            <a th:href="@{/auth/login}" class="nav-item"><i class="fas fa-users"></i>Logout</a>
         </nav>
-        <div class="profile">
-            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
-            <a href="/profile" class="profile-link">Akses Profil</a>
-        </div>
     </div>
     <main class="main-content">
-        <h1>Laporan Laba Rugi</h1>
+        <div class="title">
+            
+            <h1>Laporan Laba Rugi</h1>
+        </div>
         <form action="/laba-rugi/print-pdf" method="post">
             <button type="submit" class="btn">Print PDF</button>
         </form>

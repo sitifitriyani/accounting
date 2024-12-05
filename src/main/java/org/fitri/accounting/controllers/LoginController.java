@@ -2,11 +2,12 @@ package org.fitri.accounting.controllers;
 
 import org.fitri.accounting.models.Login;
 import org.fitri.accounting.services.LoginService;
-import org.fitri.accounting.services.TampLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
@@ -16,8 +17,8 @@ public class LoginController {
     private LoginService loginService;
 
     @Autowired
-    private TampLoginService tampLoginService;
-
+    private HttpSession httpSession;
+    
     @GetMapping("/login")
     public String showLoginForm() {
         return "login"; 
@@ -26,14 +27,13 @@ public class LoginController {
     @PostMapping("/save-login")
     public String login(@RequestParam String email, @RequestParam String password, Model model) {
         String result = loginService.login(email, password);
-        // System.out.println(email + " " +result);
         if (result.equals("Login berhasil!")) {
             Login login = loginService.findByEmail(email);
-            tampLoginService.saveLogin(login);
-            return "redirect:/dashboard";
+            httpSession.setAttribute("login", login);  // Menyimpan login di sesi
+            return "redirect:/dashboard";  // Mengarahkan ke dashboard setelah login berhasil
         } else {
-            model.addAttribute("loginError", result);
-            return "login";
+            model.addAttribute("loginError", result);  // Menampilkan pesan error jika login gagal
+            return "login";  // Kembali ke halaman login jika gagal
         }
     }
 
@@ -44,8 +44,7 @@ public class LoginController {
     }
 
     @PostMapping("/save-register")
-    public String register(@ModelAttribute Login login, @RequestParam String companyName, Model model) {
-        // login.setCompanyName(companyName);
+    public String register(@ModelAttribute Login login, Model model) {
         String result = loginService.register(login);
         model.addAttribute("registrationMessage", result);
         return "login"; 

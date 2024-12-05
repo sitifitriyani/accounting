@@ -1,52 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Profile</title>
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-    </head>
+<head>
+    <title>Detail Profile</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Profile</h2>
 
-    <body>
-        <div class="profile-container">
-            <h2>Profile</h2>
+        <!-- Tampilkan Gambar Profil -->
+        <div>
             <div th:if="${profile.profileImage != null}">
                 <img th:src="${profile.profileImage}" alt="Profile Image" class="profile-image-large">
             </div>
-            <!-- <div th:if="${profile.profileImage == null}">
+            <div th:if="${profile.profileImage == null}">
                 <p>No profile image available.</p>
-            </div> -->
-            <a href="" th:if="${profile.id != null}" class="btn">Edit Profile</a>
-            <form th:if="${profile.id}" th:action="@{/profile/save-profile}" th:object="${profile}" method="post" enctype="multipart/form-data" class="profile-form">
-                <div class="form-group">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" th:field="*{name}" class="form-input" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="phone" class="form-label">Phone:</label>
-                    <input type="number" th:field="*{phone}" class="form-input" id="phone">
-                </div>
-                <div class="form-group">
-                    <label for="address" class="form-label">Address:</label>
-                    <input type="text" th:field="*{address}" class="form-input" id="address">
-                </div>
-                <div class="form-group">
-                    <label for="companyName" class="form-label">Company Name:</label>
-                    <input type="text" th:field="*{companyName}" class="form-input" id="companyName">
-                </div>
-                <div class="form-group">
-                    <label for="profileImage" class="form-label">Profile Image:</label>
-                    <input type="file" th:field="*{profileImage}" name="file" class="form-input" id="profileImage">
-                </div>
-                <!-- Registration Data Fields -->
-                <div class="form-group">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" th:field="*{login.email}" class="form-input" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" th:field="*{login.password}" class="form-input" id="password">
-                </div>
-                <button type="submit" class="btn-green">Save</button>
-            </form>
+            </div>
         </div>
-    </body>
+
+        <!-- Tampilkan Detail Profil -->
+        <div class="profile-details">
+            <p><strong>Username:</strong> <span th:text="${profile.login.username}">N/A</span></p>
+            <p><strong>Email:</strong> <span th:text="${profile.login.email}">N/A</span></p>
+            <p><strong>Password:</strong> <span th:text="${profile.login.password}">N/A</span></p>
+            <p><strong>Phone:</strong> <span th:text="${profile.phone ?: 'N/A'}">N/A</span></p>
+            <p><strong>Address:</strong> <span th:text="${profile.address ?: 'N/A'}">N/A</span></p>
+        </div>
+
+        <!-- Tombol Edit dan Delete -->
+        <div class="profile-actions">
+            <a th:href="@{/profile/create}" class="btn">Edit Profile</a>
+            <form th:action="@{/profile/delete/{id}(id=${profile.id})}" method="post">
+                <button type="submit" class="btn">Delete Profile</button>
+            </form>            
+        </div>
+
+        <!-- Tombol Kembali ke Dashboard -->
+        <div class="button-container">
+            <a th:href="@{/dashboard}" class="btn">Kembali ke Dashboard</a>
+        </div>
+    </div>
+</body>
 </html>

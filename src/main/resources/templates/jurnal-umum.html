@@ -21,15 +21,21 @@
             <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-chart-pie"></i>Perubahan Ekuitas</a>
             <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
             <a th:href="@{/akun}" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+            <a th:href="@{/auth/login}" class="nav-item"><i class="fas fa-users"></i>Logout</a>
         </nav>
-        <div class="profile">
-            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
-            <a href="/profile" class="profile-pnk">Akses Profil</a>
-        </div>
     </div>
 
     <main class="main-content">
-        <h1>Jurnal Umum</h1>
+        <!-- <header class="main-header">
+            <div class="profile-header">
+                <a th:href="@{/profile/create}">
+                    <img th:src="${profile?.profileImage != null ? profile.profileImage : '/images/default-profile.png'}" alt="Profile Image" class="profile-image-small">
+                </a>
+            </div>
+        </header>  -->
+        <div class="title">
+            <h1>Jurnal Umum</h1>
+        </div>  
         <form action="/jurnal-umum/print-pdf" method="post">
             <label for="startDate">Start Date:</label>
             <input type="date" id="startDate" name="startDate" required>

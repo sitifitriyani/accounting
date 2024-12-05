@@ -13,7 +13,7 @@
             <h1 class="title">My Accounting</h1>        
         </div>
         <nav class="sidebar-nav">
-            <a th:href="@{/dasboard}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
+            <a th:href="@{/dashboard}" class="nav-item"><i class="fas fa-home"></i>Dashboard</a>
             <a th:href="@{/transaksi}" class="nav-item"><i class="fas fa-home"></i>Transaksi</a>
             <a th:href="@{/jurnal-umum}" class="nav-item"><i class="fas fa-home"></i>Jurnal Umum</a>
             <a th:href="@{/buku-besar}" class="nav-item active"><i class="fas fa-book"></i>Buku Besar</a>
@@ -21,14 +21,14 @@
             <a th:href="@{/perubahan-ekuitas}" class="nav-item"><i class="fas fa-sync-alt"></i>Perubahan Ekuitas</a>
             <a th:href="@{/posisi-keuangan}" class="nav-item"><i class="fas fa-balance-scale"></i>Neraca</a>
             <a th:href="@{/akun}" class="nav-item"><i class="fas fa-users"></i>Akun</a>
+            <a th:href="@{/auth/login}" class="nav-item"><i class="fas fa-users"></i>Logout</a>
         </nav>
-        <div class="profile">
-            <img src="path/to/profile.jpg" alt="Foto Profil" class="profile-image" />
-            <a href="/profile" class="profile-link">Akses Profil</a>
-        </div>
     </div>
     <main class="main-content">
-        <h1>Buku Besar</h1>
+        <div class="title">
+
+            <h1>Buku Besar</h1>
+        </div>
         <div th:each="entry : ${bukuBesar}">
             <div th:if="${not #lists.isEmpty(entry.value)}"> <!-- Validasi jika ada transaksi -->
                 <h2>Akun: <span th:text="${entry.key.namaAkun}"></span></h2>
