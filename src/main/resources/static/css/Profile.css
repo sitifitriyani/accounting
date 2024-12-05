@@ -1,0 +1,129 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #ff79c6;
+}
+
+/* Profile Container */
+.profile-container {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+/* Profile Image */
+.profile-image-large {
+    display: block;
+    max-width: 150px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    border: 3px solid #ff79c6;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Profile Details */
+.profile-details p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.profile-details strong {
+    color: #50fa7b;
+}
+
+/* Form Styles */
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #bd93f9;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.form-input:focus {
+    outline: none;
+    border: 1px solid #8be9fd;
+    box-shadow: 0px 0px 8px #8be9fd;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Profile Actions */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.profile-actions .btn {
+    flex: 1;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}

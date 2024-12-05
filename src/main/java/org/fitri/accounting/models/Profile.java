@@ -15,7 +15,6 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // private String companyName;
     private Long phone;
     private String address;
 @OneToOne(cascade = CascadeType.ALL)

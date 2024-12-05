@@ -10,6 +10,10 @@
     <div class="container">
         <div class="form-container">
             <h2>Create an Account</h2>
+            <div th:if="${registrationError != null}" class="alert alert-danger">
+                <p th:text="${registrationError}"></p>
+            </div>
+            
             <form action="/auth/save-register" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>

@@ -39,9 +39,9 @@ public class LoginService {
         }
 
           // Cek apakah email sudah ada
-    if (loginRepository.findByEmail(login.getEmail()) != null) {
-        return "Email sudah digunakan!";
-    }
+        if (loginRepository.findByEmail(login.getEmail()) != null) {
+            return "Email sudah digunakan!";
+        }
         // Log before saving
         // System.out.println("Saving user to database: " + login.getEmail());
         loginRepository.save(login);

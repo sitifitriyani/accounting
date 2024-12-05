@@ -24,19 +24,34 @@ public class ProfileService {
         return profile;
         }
 
-    public void saveProfile(Profile profile) {
-        profileRepository.save(profile);
-    }
+        public void saveProfile(Profile profile) {
+            Login existingLogin = loginRepository.findById(profile.getLogin().getId()).orElse(null);
+            if (existingLogin == null) {
+                throw new IllegalArgumentException("Login tidak ditemukan untuk profil ini.");
+            }
 
-    public void deleteProfileById(Long id) {
-        // Profile profile = profileRepository.findById(id).orElse(null);
-        // if (profile != null && profile.getLogin() != null) {
-        //     loginRepository.delete(profile.getLogin());
-        // }
-        // profileRepository.deleteById(id);
-        if (!profileRepository.existsById(id)) {
-            throw new RuntimeException("Profile not found");
+            if (profile.getLogin().getEmail() != null) {
+                existingLogin.setEmail(profile.getLogin().getEmail());
+            }
+            if (profile.getLogin().getPassword() != null) {
+                existingLogin.setPassword(profile.getLogin().getPassword());
+            }
+            if (profile.getLogin().getUsername() != null) {
+                existingLogin.setUsername(profile.getLogin().getUsername());
+            }
+
+            loginRepository.save(existingLogin);
+
+            profile.setLogin(existingLogin);
+            profileRepository.save(profile);
+        }
+
+
+        public void deleteProfileById(Long id) {
+        Profile profile = profileRepository.findById(id).orElse(null);
+        if (profile != null && profile.getLogin() != null) {
+            loginRepository.delete(profile.getLogin());
         }
         profileRepository.deleteById(id);
     }
-}
+} 

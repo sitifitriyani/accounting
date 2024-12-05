@@ -10,6 +10,9 @@
     <div class="container">
         <div class="form-container">
             <h2>Login</h2>
+            <div th:if="${loginError != null}" class="alert alert-danger">
+                <p th:text="${loginError}"></p>
+            </div>
             <form action="/auth/save-login" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>

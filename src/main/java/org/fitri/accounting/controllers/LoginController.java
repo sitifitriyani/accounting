@@ -29,11 +29,13 @@ public class LoginController {
         String result = loginService.login(email, password);
         if (result.equals("Login berhasil!")) {
             Login login = loginService.findByEmail(email);
-            httpSession.setAttribute("login", login);  // Menyimpan login di sesi
-            return "redirect:/dashboard";  // Mengarahkan ke dashboard setelah login berhasil
+            httpSession.setAttribute("login", login);  
+            model.addAttribute("message", "Login successful!");  // Menambahkan pesan sukses
+            return "redirect:/dashboard";  
         } else {
-            model.addAttribute("loginError", result);  // Menampilkan pesan error jika login gagal
-            return "login";  // Kembali ke halaman login jika gagal
+            model.addAttribute("loginError", result);  
+            model.addAttribute("message", "Login failed. Please try again.");  
+            return "login"; 
         }
     }
 
@@ -46,7 +48,12 @@ public class LoginController {
     @PostMapping("/save-register")
     public String register(@ModelAttribute Login login, Model model) {
         String result = loginService.register(login);
-        model.addAttribute("registrationMessage", result);
-        return "login"; 
+        if (result.equals("Registrasi berhasil!")) {
+            model.addAttribute("registrationMessage", result);
+            return "redirect:/auth/login"; // Redirect ke halaman login jika berhasil
+        } else {
+            model.addAttribute("registrationError", result); // Menambahkan pesan error ke model
+            return "register"; // Kembali ke halaman register jika gagal
+        }
     }
 }
