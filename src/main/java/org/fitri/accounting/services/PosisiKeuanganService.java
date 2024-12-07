@@ -33,7 +33,6 @@ public class PosisiKeuanganService {
 
     public Map<String, Double> getLiabilitasList() {
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
-        // System.out.println(saldoBukuBesar);
         Map<String, Double> rincianLiabilitas = new LinkedHashMap<>();
 
         for (Map.Entry<Akun, Double> entry : saldoBukuBesar.entrySet()) {

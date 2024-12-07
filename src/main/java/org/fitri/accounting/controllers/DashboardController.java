@@ -26,9 +26,6 @@ public class DashboardController {
     @Autowired
     private LoginService loginService;
 
-    // @Autowired
-    // private LabaRugiService labaRugiService;
-
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         Login login = loginService.getLogin();

@@ -39,11 +39,9 @@ public class PerubahanEkuitasController {
         double prive = perubahanEkuitasService.getPrive();
 
         double kenaikanEkuitas = perubahanEkuitasService.totalKenaikanEkuitas(penambahanModal, labaBersih);
-        // double totalKenaikan = kenaikanEkuitas;
         double kenaikanEkuitasSetelahPrive = kenaikanEkuitas - prive;
         double ekuitasPer31Desember = perubahanEkuitasService.calculateEkuitasPer31Desember(modalAwal, kenaikanEkuitasSetelahPrive);
 
-        // Menambahkan data ke model untuk digunakan di HTML
         model.addAttribute("ekuitasPemilik", modalAwal);
         model.addAttribute("kenaikanEkuitas", penambahanModal);
         model.addAttribute("labaBersih", labaBersih);
@@ -52,7 +50,6 @@ public class PerubahanEkuitasController {
         model.addAttribute("kenaikanEkuitasSetelahPrive", kenaikanEkuitasSetelahPrive);
         model.addAttribute("ekuitasPer31Desember", ekuitasPer31Desember);
 
-        // Mengembalikan nama file HTML
         return "perubahan-ekuitas";
     }
 
@@ -62,25 +59,20 @@ public class PerubahanEkuitasController {
         PdfWriter writer = new PdfWriter(byteArrayOutputStream);
         Document document = new Document(new com.itextpdf.kernel.pdf.PdfDocument(writer));
 
-        // Add title
         document.add(new Paragraph("Laporan Perubahan Ekuitas")
             .setFontSize(14)
             .setTextAlignment(TextAlignment.CENTER)
             .setMarginBottom(20));
 
-        // Define a table with 2 columns
         Table table = new Table(UnitValue.createPercentArray(new float[]{3, 2}));
         table.setWidth(UnitValue.createPercentValue(100));
 
-        // Define colors
         Color headerColor = new DeviceRgb(63, 81, 181);
         Color cellColor = new DeviceRgb(224, 224, 224);
 
-        // Add table headers
         table.addHeaderCell(new Cell().add(new Paragraph("Jenis Akun")).setBackgroundColor(headerColor));
         table.addHeaderCell(new Cell().add(new Paragraph("Nominal")).setBackgroundColor(headerColor));
 
-        // Add data to the table
         table.addCell(new Cell().add(new Paragraph("Ekuitas Pemilik")).setBackgroundColor(cellColor));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(perubahanEkuitasService.getModalAwal()))).setBackgroundColor(cellColor));
 

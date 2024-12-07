@@ -61,19 +61,15 @@ public class PosisiKeuanganController {
             .setTextAlignment(TextAlignment.CENTER)
             .setMarginBottom(20));
 
-        // Define a table with 2 columns
         Table table = new Table(UnitValue.createPercentArray(new float[]{3, 2}));
         table.setWidth(UnitValue.createPercentValue(100));
 
-        // Define colors
         Color headerColor = new DeviceRgb(63, 81, 181);
         Color cellColor = new DeviceRgb(224, 224, 224);
 
-        // Add table headers
         table.addHeaderCell(new Cell().add(new Paragraph("Jenis Akun")).setBackgroundColor(headerColor));
         table.addHeaderCell(new Cell().add(new Paragraph("Nominal")).setBackgroundColor(headerColor));
 
-        // Add Aset
         table.addCell(new Cell(1, 2).add(new Paragraph("Aset")).setBackgroundColor(headerColor));
         table.addCell(new Cell().add(new Paragraph("asetList")).setBackgroundColor(cellColor));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(posisiKeuanganService.getAsetList()))).setBackgroundColor(cellColor));

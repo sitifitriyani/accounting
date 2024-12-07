@@ -16,18 +16,16 @@ public class PerubahanEkuitasService {
     private LabaRugiService labaRugiService;
 
     public double getModalAwal() {
-        // Misalnya, modal awal diambil dari buku besar dengan nama akun "Modal Awal"
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
         return saldoBukuBesar.entrySet().stream()
                 .filter(entry -> entry.getKey().getNamaAkun().equalsIgnoreCase("Modal"))
-                .findFirst() // Ambil transaksi pertama
-                .map(Map.Entry::getValue) // Ambil nilai dari transaksi
-                .orElse(0.0); // Jika tidak ditemukan, return 0  
+                .findFirst() 
+                .map(Map.Entry::getValue) 
+                .orElse(0.0); 
               
     }
 
     public double getLabaBersih() {
-        // Mengambil laba bersih dari LabaRugiService
         return labaRugiService.getLabaRugiBersih();
     }
 
@@ -41,7 +39,6 @@ public class PerubahanEkuitasService {
                 return totalModal;
     }
     public double getPrive() {
-        // Contoh: Prive diambil dari buku besar dengan nama akun "Prive"
         Map<Akun, Double> saldoBukuBesar = bukuBesarService.getSaldoBukuBesar();
         return saldoBukuBesar.entrySet().stream()
                 .filter(entry -> entry.getKey().getNamaAkun().equalsIgnoreCase("Prive"))

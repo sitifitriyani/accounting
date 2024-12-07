@@ -50,38 +50,30 @@ public class LabaRugiController {
         PdfWriter writer = new PdfWriter(byteArrayOutputStream);
         Document document = new Document(new com.itextpdf.kernel.pdf.PdfDocument(writer));
 
-        // Add title
         document.add(new Paragraph("Laporan Laba Rugi")
             .setFontSize(14)
             .setTextAlignment(TextAlignment.CENTER)
             .setMarginBottom(20));
 
-        // Define a table with 2 columns
         Table table = new Table(UnitValue.createPercentArray(new float[]{3, 2}));
         table.setWidth(UnitValue.createPercentValue(100));
 
-        // Define colors
         Color headerColor = new DeviceRgb(63, 81, 181);
         Color cellColor = new DeviceRgb(224, 224, 224);
 
-        // Add table headers
         table.addHeaderCell(new Cell().add(new Paragraph("Jenis Akun")).setBackgroundColor(headerColor));
         table.addHeaderCell(new Cell().add(new Paragraph("Nominal")).setBackgroundColor(headerColor));
 
-        // Add total pendapatan
         table.addCell(new Cell().add(new Paragraph("Total Pendapatan")).setBackgroundColor(cellColor));
         table.addCell(new Cell().add(new Paragraph(data.get("totalPendapatan").toString())).setBackgroundColor(cellColor));
 
-        // Add rincian beban
         table.addCell(new Cell(1, 2).add(new Paragraph("Rincian Beban")).setBackgroundColor(headerColor));
         table.addCell(new Cell().add(new Paragraph("rincianBeban")).setBackgroundColor(cellColor));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(labaRugiService.getRincianBeban()))).setBackgroundColor(cellColor));
 
-        // Add total beban
         table.addCell(new Cell().add(new Paragraph("Total Beban")).setBackgroundColor(cellColor));
         table.addCell(new Cell().add(new Paragraph(data.get("totalBeban").toString())).setBackgroundColor(cellColor));
 
-        // Add laba/rugi bersih
         table.addCell(new Cell().add(new Paragraph("Laba/Rugi Bersih")).setBackgroundColor(headerColor));
         table.addCell(new Cell().add(new Paragraph(data.get("labaRugiBersih").toString())).setBackgroundColor(headerColor));
 

@@ -50,10 +50,10 @@ public class LoginController {
         String result = loginService.register(login);
         if (result.equals("Registrasi berhasil!")) {
             model.addAttribute("registrationMessage", result);
-            return "redirect:/auth/login"; // Redirect ke halaman login jika berhasil
+            return "redirect:/auth/login"; 
         } else {
-            model.addAttribute("registrationError", result); // Menambahkan pesan error ke model
-            return "register"; // Kembali ke halaman register jika gagal
+            model.addAttribute("registrationError", result); 
+            return "register"; 
         }
     }
 }

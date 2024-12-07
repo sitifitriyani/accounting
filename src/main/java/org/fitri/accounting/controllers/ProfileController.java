@@ -34,7 +34,7 @@ public class ProfileController {
         Profile profile = profileService.getByLogin(login);
         if (profile == null) {
             profile = new Profile();
-            profile.setLogin(login); // Hanya membuat profil baru jika tidak ada
+            profile.setLogin(login); 
         }
     
         model.addAttribute("profile", profile);
@@ -97,9 +97,9 @@ public String createProfile(Model model) {
         }
         try {
             if (!file.isEmpty()) {
-                Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static", "images", file.getOriginalFilename());
+                Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static", "image", file.getOriginalFilename());
                 file.transferTo(path.toFile());
-                String imageUrl = "/images/" + file.getOriginalFilename();
+                String imageUrl = "/image/" + file.getOriginalFilename();
                 profile.setProfileImage(imageUrl);
             }
             profileService.saveProfile(profile);
@@ -107,10 +107,6 @@ public String createProfile(Model model) {
         } catch (IOException e) {
             model.addAttribute("errorMessage", "Error uploading file: " + e.getMessage());
             return "edit-profile";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "edit-profile";
-        }
     }
-    
+}
 }

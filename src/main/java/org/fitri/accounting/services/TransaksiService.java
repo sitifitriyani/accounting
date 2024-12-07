@@ -37,9 +37,9 @@ public class TransaksiService {
 
         for (Transaksi transaksi : transaksiList) {
             if (transaksi.getDebitAkun() != null && transaksi.getDebitAkun().getId().equals(akunId)) {
-                saldo += transaksi.getNominal(); // Tambah nominal ke saldo jika debit
+                saldo += transaksi.getNominal(); 
             } else if (transaksi.getKreditAkun() != null && transaksi.getKreditAkun().getId().equals(akunId)) {
-                saldo -= transaksi.getNominal(); // Kurangi nominal dari saldo jika kredit
+                saldo -= transaksi.getNominal(); 
             }
         }
 
